@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: spring-notification-scheduler
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/scheduler?useSSL=false
+    username: quartz
+    password: quartz
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        jdbc:
+          time_zone: UTC
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+
+  quartz:
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: never
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: notification-scheduler
+            instanceId: AUTO
+          threadPool:
+            threadCount: 20
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            useProperties: true
+            misfireThreshold: 60000
+            tablePrefix: QRTZ_
+            isClustered: true
+          plugin:
+            shutdownHook:
+              class: org.quartz.plugins.management.ShutdownHookPlugin
+              cleanShutdown: TRUE
