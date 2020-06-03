@@ -29,6 +29,7 @@ public class SchedulerServiceImpl {
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
+
         return jobDetail;
     }
 
@@ -56,5 +57,13 @@ public class SchedulerServiceImpl {
                 .usingJobData(jobDataMap)
                 .storeDurably()
                 .build();
+    }
+
+    public static void main(String[] args) {
+        try {
+
+        }catch (Exception ex){
+            throw new RuntimeException();
+        }
     }
 }
